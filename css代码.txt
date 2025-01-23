@@ -1,0 +1,43 @@
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #000000;
+    }
+    span {
+      font-weight: bolder;
+      font-size: 30px;
+      color: #ffffff;
+      word-spacing: 5px;
+    }
+    video {
+      width: 100%;
+      /*top: -100px;*/
+      z-index: -1;
+      position: absolute;
+    }
+
+    @media screen and (max-width: 767px) {
+      body {
+        /*display: block;*/
+      }
+      span {
+        transform: rotateZ(90deg);
+        font-size: 1.8rem;
+        white-space: nowrap;
+      }
+
+      video {
+        z-index: -1;
+        position: absolute;
+        transform: rotateZ(90deg);
+      }
+    }
+  </style>

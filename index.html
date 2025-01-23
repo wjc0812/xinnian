@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #000000;
+    }
+    span {
+      font-weight: bolder;
+      font-size: 30px;
+      color: #ffffff;
+      word-spacing: 5px;
+    }
+    video {
+      width: 100%;
+      /*top: -100px;*/
+      z-index: -1;
+      position: absolute;
+    }
+
+    @media screen and (max-width: 767px) {
+      body {
+        /*display: block;*/
+      }
+      span {
+        transform: rotateZ(90deg);
+        font-size: 1.8rem;
+        white-space: nowrap;
+      }
+
+      video {
+        z-index: -1;
+        position: absolute;
+        transform: rotateZ(90deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+<video type="video/mp4">
+  <source src="sp/01.mp4" type="video/mp4">
+</video>
+<span></span>
+<script>
+    var area = document.querySelector("span");
+    var video = document.querySelector("video");
+
+    var isLink = true;
+    area.onclick = function(event) {
+      if(isLink) {
+        video.play();
+        isLink = false;
+        return;
+      }
+      video.pause();
+      isLink = true;
+    }
+
+
+
+    var timer = setInterval(()=> {
+      area.innerHTML = `距离<span style="color: red;">除夕夜</span>还有 ${showTime()}`
+    }, 0);
+
+    function showTime() {
+      var nowTime = new Date(),
+        endTime = new Date("2025/1/28");
+
+      var leftTime = endTime.getTime() - nowTime.getTime(),
+        leftd = Math.floor(leftTime / (1000 * 60 * 60 * 24)),
+        lefth = Math.floor(leftTime / (1000 * 60 * 60) % 24),
+        leftm = Math.floor(leftTime / (1000 * 60) % 60),
+        lefts = Math.floor(leftTime / 1000 % 60);
+
+        if(leftTime < 0) {
+        	clearInterval(timer);
+        	return "000 天 00 小时 00 分钟 00 秒 ";
+        }
+
+        if(leftd < 100 && leftd > 100) {
+          leftd = "0"+leftd;
+        } else if(leftd < 10) {
+          leftd = "00"+leftd;
+        }
+      return `${leftd} 天 ${lefth < 10 ? "0"+lefth: lefth} 小时 ${leftm < 10 ? "0"+leftm: leftm} 分钟 ${lefts < 10 ? "0"+lefts: lefts} 秒 `;
+    }
+
+    console.log(showTime());
+
+
+  </script>
+</body>
+</html>

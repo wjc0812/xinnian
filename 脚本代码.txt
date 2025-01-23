@@ -1,0 +1,48 @@
+<script>
+    var area = document.querySelector("span");
+    var video = document.querySelector("video");
+
+    var isLink = true;
+    area.onclick = function(event) {
+      if(isLink) {
+        video.play();
+        isLink = false;
+        return;
+      }
+      video.pause();
+      isLink = true;
+    }
+
+
+
+    var timer = setInterval(()=> {
+      area.innerHTML = `距离<span style="color: red;">除夕夜</span>还有 ${showTime()}`
+    }, 0);
+
+    function showTime() {
+      var nowTime = new Date(),
+        endTime = new Date("2025/1/28");
+
+      var leftTime = endTime.getTime() - nowTime.getTime(),
+        leftd = Math.floor(leftTime / (1000 * 60 * 60 * 24)),
+        lefth = Math.floor(leftTime / (1000 * 60 * 60) % 24),
+        leftm = Math.floor(leftTime / (1000 * 60) % 60),
+        lefts = Math.floor(leftTime / 1000 % 60);
+
+        if(leftTime < 0) {
+        	clearInterval(timer);
+        	return "000 天 00 小时 00 分钟 00 秒 ";
+        }
+
+        if(leftd < 100 && leftd > 10) {
+          leftd = "0"+leftd;
+        } else if(leftd < 10) {
+          leftd = "00"+leftd;
+        }
+      return `${leftd} 天 ${lefth < 10 ? "0"+lefth: lefth} 小时 ${leftm < 10 ? "0"+leftm: leftm} 分钟 ${lefts < 10 ? "0"+lefts: lefts} 秒 `;
+    }
+
+    console.log(showTime());
+
+
+  </script>
